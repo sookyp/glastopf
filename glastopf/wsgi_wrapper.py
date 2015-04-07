@@ -14,6 +14,8 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
+# modified by Sooky Peter <xsooky00@stud.fit.vutbr.cz>
+# Brno University of Technology, Faculty of Information Technology
 
 from webob import Request, Response
 
@@ -48,7 +50,16 @@ class GlastopfWSGI(object):
 
         header, body = self.honeypot.handle_request(req_webob.as_text(),
                                                          remote_addr, sensor_addr)
-        for h in header.splitlines():
+
+        header_list = header.splitlines()
+        try:
+            # format: http_version status_code description
+            res_webob.status_code = int(header_list[0].split()[1])
+        except ValueError:
+            # ['User-agent: *', 'Disallow:']
+            # default 200 OK
+            pass
+        for h in header_list:
             if ":" in h:
                 h, v = h.split(":", 1)
                 res_webob.headers[str(h.strip())] = str(v.strip())
