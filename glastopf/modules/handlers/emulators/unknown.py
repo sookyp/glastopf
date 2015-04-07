@@ -15,6 +15,9 @@
 # Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
+# modified by Sooky Peter <xsooky00@stud.fit.vutbr.cz>
+# Brno University of Technology, Faculty of Information Technology
+
 import os
 from random import choice
 import codecs
@@ -34,7 +37,7 @@ class DorkList(base_emulator.BaseEmulator):
         pages_path = os.path.join(self.data_dir, 'dork_pages')
         dork_page_list = os.listdir(pages_path)
         self.dork_page = os.path.join(pages_path, choice(dork_page_list))
-        #ip_address = attack_event.source_addr[0]
+        #ip_address = attack_event.source_ip
         with codecs.open(self.dork_page, "rb", "utf-8") as dork_page:
             comments_file = os.path.join(self.data_dir, 'comments.txt')
             if os.path.isfile(comments_file):

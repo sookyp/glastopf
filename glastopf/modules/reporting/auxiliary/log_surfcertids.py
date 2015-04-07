@@ -15,6 +15,9 @@
 # Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
+# modified by Sooky Peter <xsooky00@stud.fit.vutbr.cz>
+# Brno University of Technology, Faculty of Information Technology
+
 import logging
 import os
 
@@ -115,8 +118,8 @@ class LogSURFcertIDS(BaseLogger):
             """,
                        (
                            severity,
-                           str(attack_event.source_addr[0]),
-                           str(attack_event.source_addr[1]),
+                           str(attack_event.source_ip),
+                           str(attack_event.source_port),
                            str(attack_event.sensor_addr[0]),
                            str(attack_event.sensor_addr[1]),
                            self.options["atype"]

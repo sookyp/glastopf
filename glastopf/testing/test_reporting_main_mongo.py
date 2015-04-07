@@ -15,6 +15,9 @@
 # Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
+# modified by Sooky Peter <xsooky00@stud.fit.vutbr.cz>
+# Brno University of Technology, Faculty of Information Technology
+
 import unittest
 import warnings
 from datetime import datetime
@@ -39,7 +42,8 @@ class TestMongoMainDatbase(unittest.TestCase):
             attack_event = attack.AttackEvent()
             attack_event.event_time = self.event_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             attack_event.matched_pattern = "test_test"
-            attack_event.source_addr = ("192.168.1.201", 12345)
+            attack_event.source_ip = "192.168.1.201"
+            attack_event.source_port = "12345"
             request = ("GET /breadandbytter.php?a=b HTTP/1.0\r\n"
             "Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.3\r\n"
             "ISO-8859-1,utf-8;q=0.7,*;q=0.3r\n"
@@ -58,8 +62,8 @@ class TestMongoMainDatbase(unittest.TestCase):
 
             entry = results[0]
 
-            self.assertEqual(entry["source"][0], "192.168.1.201")
-            self.assertEqual(entry["source"][1], 12345)
+            self.assertEqual(entry["source_ip"], "192.168.1.201")
+            self.assertEqual(entry["source_port"], 12345)
             self.assertEqual(entry["pattern"], "test_test")
             self.assertEqual(entry["request_raw"], request)
             self.assertEqual(entry["request_url"], "/breadandbytter.php?a=b")

@@ -16,6 +16,10 @@
 # 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 # TODO: Properly implement gevent in glastopf
+
+# modified by Sooky Peter <xsooky00@stud.fit.vutbr.cz>
+# Brno University of Technology, Faculty of Information Technology
+
 from gevent import monkey
 monkey.patch_all()
 
@@ -234,8 +238,8 @@ class GlastopfHoneypot(object):
         client_ip = client_ip.split(',')[-1]
         if client_ip == 'unknown':
             client_ip = '0.0.0.0'
-            # Note: the port number is not relevant in this case
-        attack_event.source_addr = (client_ip, addr[1])
+            # Note: the port number is not relevant in this case (client_ip, addr[1])
+        attack_event.source_ip = client_ip
 
     def handle_request(self, raw_request, addr, sensor_addr):
 
@@ -248,9 +252,11 @@ class GlastopfHoneypot(object):
         if self.options["proxy_enabled"] == "True":
             self._handle_proxy(attack_event, addr)
         else:
-            attack_event.source_addr = addr
+            # changing source to ip and port
+            attack_event.source_ip = addr[0]
+            attack_event.source_port = addr[1]
         logger.info("{0} requested {1} {2} on {3}:{4}".format(
-            attack_event.source_addr[0],
+            attack_event.source_ip,
             attack_event.http_request.command,
             attack_event.http_request.path,
             attack_event.sensor_addr[0],

@@ -15,6 +15,9 @@
 # Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
+# modified by Sooky Peter <xsooky00@stud.fit.vutbr.cz>
+# Brno University of Technology, Faculty of Information Technology
+
 import unittest
 from datetime import datetime
 
@@ -36,7 +39,8 @@ class TestSQLAlchemy(unittest.TestCase):
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         attack_event.event_time = timestamp
         attack_event.matched_pattern = "test_test"
-        attack_event.source_addr = ("192.168.1.201", 12345)
+        attack_event.source_ip = "192.168.1.201"
+        attack_event.source_port = "12345"
         request = (
             'GET /breadandbytter.php?a=b HTTP/1.0\r\n'
             'Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.3\r\n'
@@ -59,14 +63,16 @@ class TestSQLAlchemy(unittest.TestCase):
         #check basic attributes
         #time
         self.assertEqual(entry[1], timestamp)
-        #source
-        self.assertEqual(entry[2], "192.168.1.201:12345")
+        #source_ip
+        self.assertEqual(entry[2], "192.168.1.201")
+        #source_port
+        self.assertEqual(entry[3], "12345")
         #request_url
-        self.assertEqual(entry[3], "/breadandbytter.php?a=b")
+        self.assertEqual(entry[4], "/breadandbytter.php?a=b")
         #request_body
-        self.assertEqual(entry[4], request)
+        self.assertEqual(entry[5], request)
         #pattern
-        self.assertEqual(entry[5], "test_test")
+        self.assertEqual(entry[6], "test_test")
 
 
 if __name__ == '__main__':

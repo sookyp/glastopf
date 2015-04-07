@@ -1,3 +1,6 @@
+# modified by Sooky Peter <xsooky00@stud.fit.vutbr.cz>
+# Brno University of Technology, Faculty of Information Technology
+
 import os
 from random import choice
 import codecs
@@ -24,7 +27,7 @@ class CommentPoster(base_emulator.BaseEmulator):
         pages_path = os.path.join(self.data_dir, 'dork_pages')
         dork_page_list = os.listdir(pages_path)
         dork_page = choice(dork_page_list)
-        ip_address = attack_event.source_addr[0]
+        ip_address = attack_event.source_ip
 
         comments_file = os.path.join(self.data_dir, 'comments.txt')
 

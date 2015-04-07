@@ -15,6 +15,9 @@
 # Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
+# modified by Sooky Peter <xsooky00@stud.fit.vutbr.cz>
+# Brno University of Technology, Faculty of Information Technology
+
 import logging
 import os
 
@@ -48,9 +51,10 @@ class LogSyslog(BaseLogger):
                 LogSyslog.logger.setLevel(logging.INFO)
 
     def insert(self, attack_event):
-        message = "Glaspot: %(pattern)s attack method from %(source)s against %(host)s:%(port)s. [%(method)s %(url)s]" % {
+        message = "Glaspot: %(pattern)s attack method from %(source_ip)s:%(source_port)s against %(host)s:%(port)s. [%(method)s %(url)s]" % {
             'pattern': attack_event.matched_pattern,
-            'source': ':'.join((attack_event.source_addr[0], str(attack_event.source_addr[1]))),
+            'source_ip': attack_event.source_ip,
+            'source_port': attack_event.source_port,
             'host': attack_event.sensor_addr[0],
             'port': attack_event.sensor_addr[1],
             'method': attack_event.http_request.request_verb,

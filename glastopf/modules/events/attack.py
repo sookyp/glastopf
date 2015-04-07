@@ -15,6 +15,9 @@
 # Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
+# modified by Sooky Peter <xsooky00@stud.fit.vutbr.cz>
+# Brno University of Technology, Faculty of Information Technology
+
 from datetime import datetime
 import uuid
 
@@ -26,14 +29,16 @@ class AttackEvent(object):
         self.http_request = None
         self.raw_request = None
         self.event_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        self.source_addr = None
+        self.source_ip = None
+        self.source_port = None
         self.matched_pattern = "unknown"
         self.file_name = None
 
     def event_dict(self):
         event_dict = {
             "time": self.event_time,
-            "source": self.source_addr,
+            "source_ip": self.source_ip,
+            "source_port": self.source_port,
             "request_url": self.http_request.request_url,
             "request_raw": self.http_request.request_raw,
             "pattern": self.matched_pattern,

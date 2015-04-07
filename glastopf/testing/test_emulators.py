@@ -15,6 +15,9 @@
 # Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
+# modified by Sooky Peter <xsooky00@stud.fit.vutbr.cz>
+# Brno University of Technology, Faculty of Information Technology
+
 import unittest
 import hashlib
 import uuid
@@ -226,7 +229,8 @@ class TestEmulatorIntegration(unittest.TestCase):
         event.http_request = HTTPHandler('', None)
         event.matched_pattern = "unknown"
         event.http_request.path = "/"
-        event.source_addr = ("127.0.0.1", "8080")
+        event.source_ip = "127.0.0.1"
+        event.source_port = "8080"
         request_handler = RequestHandler(self.data_dir)
         emulator = request_handler.get_handler(event.matched_pattern)
         print "Sending request:", "http://localhost:8080/"

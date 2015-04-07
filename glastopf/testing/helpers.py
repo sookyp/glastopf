@@ -1,3 +1,6 @@
+# modified by Sooky Peter <xsooky00@stud.fit.vutbr.cz>
+# Brno University of Technology, Faculty of Information Technology
+
 from sqlalchemy import Table, Column, Integer, String, MetaData
 from sqlalchemy import create_engine
 import bson
@@ -40,7 +43,8 @@ def populate_main_sql_testdatabase(engine):
     table = Table('events', meta,
                   Column('id', Integer, primary_key=True, ),
                   Column('time', String(30)),
-                  Column('source', String(30)),
+                  Column('source_ip', String(30)),
+                  Column('source_port', String(30)),
                   Column('request_url', String(500)),
                   Column('request_raw', String(65536)),
                   Column('pattern', String(20)),
@@ -52,7 +56,8 @@ def populate_main_sql_testdatabase(engine):
     insert_dicts = []
     data = open(os.path.join(file_dir, 'data/events_500.bson'), 'r').read()
     for item in bson.decode_all(data):
-        new_item = {"source": "{0}:{1}".format(item["source"][0], item["source"][1]),
+        new_item = {"source_ip": item["source_ip"],
+                    "source_port": item["source_port"],
                     "request_url": item["request"]["url"],
                     "pattern": item["pattern"]}
 
@@ -69,7 +74,8 @@ def create_empty_main_db_sqla(engine):
     Table('events', meta,
           Column('id', Integer, primary_key=True, ),
           Column('time', String(30)),
-          Column('source', String(30)),
+          Column('source_ip', String(30)),
+          Column('source_port', String(30)),
           Column('request_url', String(500)),
           Column('request_raw', String(65536)),
           Column('pattern', String(20)),
