@@ -1,10 +1,13 @@
 # Author: Sooky Peter <xsooky00@stud.fit.vutbr.cz>
 # Brno University of Technology, Faculty of Information Technology
 
+"""
+The script the 'source' column in the 'events' table into 'source_ip' and 'source_port' columns.
+"""
+
 import sqlite3
 import sys
 import os
-# the script splits source address into two different columns (ip; port)
 
 # check for database file
 if len(sys.argv) != 2:
@@ -33,7 +36,7 @@ try:
     c = conn.cursor()
     c.execute('''ALTER TABLE events ADD COLUMN source_ip VARCHAR(30)''')
     c.execute('''ALTER TABLE events ADD COLUMN source_port VARCHAR(30)''')
-    c.execute('''SELECT source_addr FROM events''')
+    c.execute('''SELECT source FROM events''')
     # string manipulation
     address = c.fetchall()
     for cnt in range(0, len(address)):
@@ -42,6 +45,6 @@ try:
     conn.executescript(remove_column)
     conn.commit()
     conn.close
-except sqlite3.DatabaseError:
-    print "Failed to execute update due to DatabaseError."
+except sqlite3.DatabaseError as e:
+    print "Failed to execute update due to DatabaseError." + format(e)
     sys.exit(3)
