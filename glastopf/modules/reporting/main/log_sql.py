@@ -15,6 +15,9 @@
 # Foundation, Inc.,
 # 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
+# modified by Sooky Peter <xsooky00@stud.fit.vutbr.cz>
+# Brno University of Technology, Faculty of Information Technology
+
 #import json
 import logging
 
@@ -35,8 +38,6 @@ class Database(object):
 
     def insert(self, attack_event):
         entry = attack_event.event_dict()
-
-        entry['source'] = (entry['source'][0] + ":" + str(entry['source'][1]))
 
         try:
             conn = self.engine.connect()
@@ -77,7 +78,8 @@ class Database(object):
             'events', meta,
             Column('id', Integer, primary_key=True, ),
             Column('time', String(30)),
-            Column('source', String(30)),
+            Column('source_ip', String(30)),
+            Column('source_port', String(30)),
             Column('request_url', String(500)),
             Column('request_raw', TEXT),
             Column('pattern', String(20)),

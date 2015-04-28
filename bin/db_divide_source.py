@@ -42,7 +42,7 @@ try:
     for cnt in range(0, len(address)):
         source_ip, source_port = address[cnt][0].split(':')
         c.execute("UPDATE events SET source_ip=?, source_port=?",(source_ip, source_port,))
-    conn.executescript(remove_column)
+    # conn.executescript(remove_column)
     conn.commit()
     conn.close
 except sqlite3.DatabaseError as e:
