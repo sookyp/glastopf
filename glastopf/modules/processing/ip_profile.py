@@ -1,3 +1,6 @@
+# modified by Sooky Peter <xsooky00@stud.fit.vutbr.cz>
+# Brno University of Technology, Faculty of Information Technology
+
 from sqlalchemy import Column, String, Integer, Float
 from sqlalchemy.ext.declarative import declarative_base
 
@@ -17,14 +20,15 @@ class IPProfile(Base):
     requests_per_scan = Column(Float)
     avg_scan_duration = Column(Float)
     scan_time_period = Column(Float)
-    last_event_time = Column(String) 
+    last_event_time = Column(String)
+    comments = Column(String)
        
     def __init__(
             self, ip=None, as_number=None, as_name=None,
             country_code=None, total_requests=0,
             total_scans=0, bgp_prefix=None,
             requests_per_scan=None, avg_scan_duration=1, 
-            scan_time_period=1, last_event_time=None):
+            scan_time_period=1, last_event_time=None, comments=None):
         self.ip = ip
         self.as_number = as_number
         self.as_name = as_name
@@ -36,3 +40,4 @@ class IPProfile(Base):
         self.avg_scan_duration = avg_scan_duration
         self.scan_time_period = scan_time_period
         self.last_event_time = last_event_time
+        self.comments = comments
