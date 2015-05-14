@@ -56,8 +56,8 @@ def populate_main_sql_testdatabase(engine):
     insert_dicts = []
     data = open(os.path.join(file_dir, 'data/events_500.bson'), 'r').read()
     for item in bson.decode_all(data):
-        new_item = {"source_ip": item["source_ip"],
-                    "source_port": item["source_port"],
+        new_item = {"source_ip": item["source"][0],
+                    "source_port": item["source"][1],
                     "request_url": item["request"]["url"],
                     "pattern": item["pattern"]}
 

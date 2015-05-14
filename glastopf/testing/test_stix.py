@@ -71,7 +71,8 @@ class Test_Stix(unittest.TestCase):
         """
 
         test_event = AttackEvent()
-        test_event.source_addr = ('1.2.3.4', 43811)
+        test_event.source_ip = '1.2.3.4'
+        test_event.source_port = 43811
         http_request_content = """GET /test HTTP/1.0\r\nUser-Agent: test\r\n\r\n"""
         test_event.http_request = HTTPHandler(http_request_content, None, server_version="", sys_version="")
         stix_package_xml = self.stix_transformer.transform(test_event)
@@ -89,7 +90,8 @@ class Test_Stix(unittest.TestCase):
         """
 
         test_event = AttackEvent()
-        test_event.source_addr = ('1.2.3.4', 43811)
+        test_event.source_ip = '1.2.3.4'
+        test_event.source_port = 43811
         http_request_content = """GET /test HTTP/1.0\r\nXUser-XAgent: test\r\n\r\n"""
         test_event.http_request = HTTPHandler(http_request_content, None, server_version="", sys_version="")
         stix_package_xml = self.stix_transformer.transform(test_event)
@@ -109,7 +111,8 @@ class Test_Stix(unittest.TestCase):
             rfi_file.writelines(rfi_data)
 
         test_event = AttackEvent()
-        test_event.source_addr = ('1.2.3.4', 43811)
+        test_event.source_ip = '1.2.3.4'
+        test_event.source_port = 43811
         test_event.matched_pattern = 'rfi'
         test_event.file_name = rfi_md5
         http_request_content = """GET /test HTTP/1.0\r\nUser-Agent: test\r\n\r\n"""
@@ -130,7 +133,8 @@ class Test_Stix(unittest.TestCase):
         with open(config_file, 'w') as f:
             self.config.write(f)
         test_event = AttackEvent()
-        test_event.source_addr = ('1.2.3.4', 43811)
+        test_event.source_ip = '1.2.3.4'
+        test_event.source_port = 43811
         http_request_content = """GET /test HTTP/1.0\r\nUser-Agent: test\r\n\r\n"""
         test_event.http_request = HTTPHandler(http_request_content, None, server_version="", sys_version="")
 
@@ -149,7 +153,8 @@ class Test_Stix(unittest.TestCase):
         with open(config_file, 'w') as f:
             self.config.write(f)
         test_event = AttackEvent()
-        test_event.source_addr = ('1.2.3.4', 43811)
+        test_event.source_ip = '1.2.3.4'
+        test_event.source_port = 43811
         http_request_content = """GET /test HTTP/1.0\r\nUser-Agent: test\r\n\r\n"""
         test_event.http_request = HTTPHandler(http_request_content, None, server_version="", sys_version="")
 

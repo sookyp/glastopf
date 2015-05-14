@@ -52,7 +52,8 @@ class Test_Loggers(unittest.TestCase):
             "GET /beer\r\n"
 
             attack_event.http_request = HTTPHandler(request, "1.2.3.4")
-            attack_event.source_addr = ('4.3.2.1', 41022)
+            attack_event.source_ip = '4.3.2.1'
+            attack_event.source_port = 41022
             logSURFcertIDS = LogSURFcertIDS(None, os.getcwd(), config_file)
             logSURFcertIDS.connection = connectionMock()
         finally:
